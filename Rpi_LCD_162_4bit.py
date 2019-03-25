@@ -117,7 +117,7 @@ def lcd_string(message,line):
  
   for i in range(LCD_WIDTH):
     lcd_display(ord(message[i]),LCD_CHR)
-    sleep(0.01)
+    time.sleep(0.01)
  
 if __name__ == '__main__':
  
