@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import RPi.GPIO as GPIO
 import time
+import os
+import serial
 #from time import sleep
  
 # Define GPIO to LCD mapping
@@ -22,7 +24,10 @@ LCD_LINE_2 = 0xC0 # LCD RAM address for the 2nd line
 # Timing constants
 E_PULSE = 0.0005
 E_DELAY = 0.0005
- 
+def robot(text):
+	os.system("espeak -ven-us+f4-s160 ' "+text+" ' 2>/dev/null")
+        lcd_display(0x01,LCD_CMD) # Clear display
+        lcd_string(text,LCD_LINE_1)
 def main():
   # Main program block
   GPIO.setwarnings(False)
@@ -37,20 +42,18 @@ def main():
   # Initialise display
   lcd_init()
  
+  ser=serial.Serial("/dev/ttyS0",9600)
+  time.sleep(3)
+  robot("System initialise")
+  time.sleep(2)
   while True:
- 
+	  if(ser.in_waiting>0):
+		  line = ser.readline()
+		  print(line)
+		  robot(line)
+    # Send some text
+    
    
-    # Send some text
-    lcd_string("Rasbperry Pi",LCD_LINE_1)
-    lcd_string("16x2 LCD Test",LCD_LINE_2)
-
-    time.sleep(3) # 3 second delay
- 
-    # Send some text
-    lcd_string("1234567890*@$#%&",LCD_LINE_1)
-    lcd_string("abcdefghijklmnop",LCD_LINE_2)
- 
-    time.sleep(3)
       
 def lcd_init():
   lcd_display(0x28,LCD_CMD) # Selecting 4 - bit mode with two rows
