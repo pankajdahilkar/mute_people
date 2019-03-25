@@ -3,11 +3,12 @@ import serial
 
 def robot(text):
 	os.system("espeak -ven-us+f4-s160 ' "+text+" ' 2>/dev/null")
-	 ser.write ("1"+text)
+	 ser.write ("1"+text+"\n")
 
 ser=serial.Serial("/dev/ttyS0",9600)
 time.sleep(3)
 robot("System initialise")
+ser.write ("1"+"System initialise \n")
 time.sleep(2)
 while True:
 	if(ser.in_waiting>0):
