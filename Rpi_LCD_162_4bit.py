@@ -44,20 +44,20 @@ def main():
     lcd_string("Rasbperry Pi",LCD_LINE_1)
     lcd_string("16x2 LCD Test",LCD_LINE_2)
 
-    sleep(3) # 3 second delay
+    time.sleep(3) # 3 second delay
  
     # Send some text
     lcd_string("1234567890*@$#%&",LCD_LINE_1)
     lcd_string("abcdefghijklmnop",LCD_LINE_2)
  
-    sleep(3)
+    time.sleep(3)
       
 def lcd_init():
   lcd_display(0x28,LCD_CMD) # Selecting 4 - bit mode with two rows
   lcd_display(0x0C,LCD_CMD) # Display On,Cursor Off, Blink Off
   lcd_display(0x01,LCD_CMD) # Clear display
 
-  sleep(E_DELAY)
+  time.sleep(E_DELAY)
  
 def lcd_display(bits, mode):
   # Send byte to data pins
