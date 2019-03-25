@@ -3,6 +3,7 @@ import serial
 
 def robot(text):
 	os.system("espeak -ven-us+f4-s160 ' "+text+" ' 2>/dev/null")
+	 ser.write ("1"+text)
 
 ser=serial.Serial("/dev/ttyS0",9600)
 time.sleep(3)
